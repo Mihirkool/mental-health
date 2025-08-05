@@ -1,9 +1,20 @@
 # agent/mental_agent.py
 import joblib
 import random
+import os
+import sys
+
+# Add the project root to the Python path for imports
+# This is crucial for local runs and some deployment environments
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Import the NLU service after path is set
 from ibm_services.ibm_nlu import get_emotion_analysis
 
+# --- Agentic AI Core: Load Models and Tools ---
+# Ensure models are loaded relative to the project root
 try:
+    # Adjust paths for deployment environment if necessary, but relative paths usually work
     model = joblib.load("models/sentiment_model.pkl")
     vectorizer = joblib.load("models/tfidf_vectorizer.pkl")
     label_encoder = joblib.load("models/label_encoder.pkl")
@@ -11,7 +22,10 @@ try:
 except FileNotFoundError as e:
     print(f"Error: {e}")
     print("Please make sure you have run preprocess.py and train_model.py first.")
-    exit()
+    # In a deployed environment, this would cause a crash, which is what we want.
+    # It indicates a critical setup failure.
+    raise RuntimeError(f"Model files not found: {e}. Ensure preprocess.py and train_model.py were run.")
+
 
 def generate_response_by_emotion(emotion_scores):
     """
@@ -59,3 +73,8 @@ if __name__ == "__main__":
     print("Mental Health Agent is running in test mode. Type 'quit' to exit.")
     while True:
         user_text = input("You: ")
+        if user_text.lower() == 'quit':
+            break
+        
+        response = process_user_input(user_text)
+        print(f"Agent: {response}")

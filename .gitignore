@@ -8,6 +8,8 @@ __pycache__/
 *.pyo
 
 # Ignore data files that are outputs of scripts
+# The raw CSV is too large, and processed PKL files are also outputs
+/data/MH_Campaigns1723.csv
 /data/*.pkl
 /models/*.pkl
 
@@ -22,4 +24,3 @@ __pycache__/
 
 # Ignore test output files
 # You can add other specific files here if needed
-/data/MH_Campaigns1723.csv

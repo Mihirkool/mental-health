@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: mental-health-agent
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app" # This tells Gunicorn to run the 'app' object from 'app.py'
+    envVars:
+      - key: PORT
+        value: "8000" # Render uses this port
