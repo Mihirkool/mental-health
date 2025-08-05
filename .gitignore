@@ -1,0 +1,25 @@
+# Ignore the virtual environment folder
+/venv/
+/.venv/
+
+# Ignore Python specific files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore data files that are outputs of scripts
+/data/*.pkl
+/models/*.pkl
+
+# Ignore the .env file containing API keys
+.env
+
+# Ignore IDE specific files (e.g., VS Code settings)
+.vscode/
+
+# Ignore Mac OS temporary files
+.DS_Store
+
+# Ignore test output files
+# You can add other specific files here if needed
+/data/MH_Campaigns1723.csv
